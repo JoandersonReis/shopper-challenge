@@ -22,3 +22,21 @@ export const RideConfirmSchema = z.object({
 })
 
 export type TRideConfirmSchema = z.infer<typeof RideConfirmSchema>
+
+export const HistoryParamsSchema = z.object({
+  customer_id: z
+    .string()
+    .min(1, "Campo 'customer_id' é obrigatório!")
+    .transform((item) => Number(item)),
+})
+
+export type THistoryParamsSchema = z.infer<typeof HistoryParamsSchema>
+
+export const HistoryQueriesSchema = z.object({
+  driver_id: z
+    .string()
+    .optional()
+    .transform((item) => (item ? Number(item) : null)),
+})
+
+export type THistoryQueriesSchema = z.infer<typeof HistoryQueriesSchema>

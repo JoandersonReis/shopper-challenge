@@ -8,11 +8,20 @@ export const validateSchemaMiddleware =
   (schema: AnyZodObject, type: TSchemaType = "body") =>
   async (request: Request, response: Response, next: NextFunction) => {
     try {
-      if (type === "body") schema.parse(request.body)
+      if (type === "body") {
+        const data = schema.parse(request.body)
+        request.body = data
+      }
 
-      if (type === "query") schema.parse(request.query)
+      if (type === "query") {
+        const data = schema.parse(request.query)
+        request.query = data
+      }
 
-      if (type === "param") schema.parse(request.params)
+      if (type === "param") {
+        const data = schema.parse(request.params)
+        request.params = data
+      }
 
       return next()
     } catch (error: any) {

@@ -1,4 +1,5 @@
 import { defaultRoutesFields } from "../lib/config/defaultRoutes"
+import ErrorResponse from "../lib/Errors"
 import { TGetRoutes } from "./GoogleRoutesTypes"
 import { routesAPI } from "./routesAPI"
 
@@ -34,6 +35,13 @@ export class GoogleRoutes {
       },
     })
 
-    return routes.data
+    if (!routes.data.routes) {
+      throw ErrorResponse.throw(
+        "INVALID_DATA",
+        "Os dados fornecidos da requisição são inválidos"
+      )
+    }
+
+    if (routes.status) return routes.data
   }
 }

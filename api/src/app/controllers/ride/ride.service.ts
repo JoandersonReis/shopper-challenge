@@ -55,7 +55,15 @@ class RideService {
 
     const driver = await driverRepo.get(ride.driver.id)
 
-    if (driver.min_distance >= Utils.convertDistance(ride.distance)) {
+    if (!driver) {
+      throw ErrorResponse.throw(
+        "DRIVER_NOT_FOUND",
+        "Motorista não encontrado",
+        404
+      )
+    }
+
+    if (driver.min_distance > Utils.convertDistance(ride.distance)) {
       throw ErrorResponse.throw(
         "INVALID_DISTANCE",
         "Quilometragem inválida para o motorista",
@@ -82,6 +90,34 @@ class RideService {
 
     return {
       success: true,
+    }
+  }
+
+  public async history(customer_id: number, driver_id: number | null) {
+    const driverRepo = new DriverRepository()
+    const rideRepo = new RideRepository()
+
+    if (driver_id) {
+      const driver = await driverRepo.get(driver_id)
+
+      if (!driver) {
+        throw ErrorResponse.throw("INVALID_DRIVER", "Motorista inválido")
+      }
+    }
+
+    const rides = await rideRepo.getByCustomer(customer_id, driver_id)
+
+    if (rides.length === 0) {
+      throw ErrorResponse.throw(
+        "NO_RIDES_FOUND",
+        "Nenhum registro encontrado!",
+        404
+      )
+    }
+
+    return {
+      customer_id: String(customer_id),
+      rides,
     }
   }
 }

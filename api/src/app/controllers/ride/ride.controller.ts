@@ -3,8 +3,12 @@ import { validateSchemaMiddleware } from "../../middlewares/validateSchemaMiddle
 import { BaseController } from "../BaseController"
 import {
   EstimateSchema,
+  HistoryParamsSchema,
+  HistoryQueriesSchema,
   RideConfirmSchema,
   TEstimateSchema,
+  THistoryParamsSchema,
+  THistoryQueriesSchema,
   TRideConfirmSchema,
 } from "./ride.schemas"
 import { rideService } from "./ride.service"
@@ -25,6 +29,15 @@ class RideController implements BaseController {
       this.confirm
     )
 
+    router.get(
+      "/:customer_id",
+      [
+        validateSchemaMiddleware(HistoryParamsSchema, "param"),
+        validateSchemaMiddleware(HistoryQueriesSchema, "query"),
+      ],
+      this.history
+    )
+
     return ["/ride", router]
   }
 
@@ -34,9 +47,9 @@ class RideController implements BaseController {
 
       const routes = await rideService.getRoutes(body.origin, body.destination)
 
-      response.json(routes).status(200)
+      response.json(routes)
     } catch (err) {
-      response.json(err[0]).status(err[1])
+      response.status(err[1]).json(err[0])
     }
   }
 
@@ -46,9 +59,25 @@ class RideController implements BaseController {
 
       const confirm = await rideService.confirm(body)
 
-      response.json(confirm).status(200)
+      response.json(confirm)
     } catch (err) {
-      response.json(err[0]).status(err[1])
+      response.status(err[1]).json(err[0])
+    }
+  }
+
+  private async history(request: Request, response: Response) {
+    try {
+      const params = request.params as THistoryParamsSchema
+      const queries = request.query as THistoryQueriesSchema
+
+      const rides = await rideService.history(
+        params.customer_id,
+        queries.driver_id || null
+      )
+
+      response.json(rides)
+    } catch (err) {
+      response.status(err[1]).json(err[0])
     }
   }
 }

@@ -34,14 +34,6 @@ export class DriverRepository {
         },
       })
 
-      if (!driver) {
-        throw ErrorResponse.throw(
-          "DRIVER_NOT_FOUND",
-          "Motorista não encontrado",
-          404
-        )
-      }
-
       return driver
     } catch (err) {
       throw ErrorResponse.throw(
