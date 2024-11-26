@@ -88,7 +88,7 @@ class RideService {
     await rideRepo.create({
       destination: ride.destination,
       distance: ride.distance,
-      customer_id: Number(ride.customer_id),
+      customer_id: ride.customer_id,
       driver_id: driver.id,
       duration: ride.duration,
       origin: ride.origin,
@@ -100,7 +100,7 @@ class RideService {
     }
   }
 
-  public async history(customer_id: number, driver_id: number | null) {
+  public async history(customer_id: string, driver_id: number | null) {
     const driverRepo = new DriverRepository()
     const rideRepo = new RideRepository()
 

@@ -55,12 +55,6 @@ async function main() {
     data: driversData,
   })
 
-  await prisma.customer.create({
-    data: {
-      username: "default",
-    },
-  })
-
   const reviewsDataFormated = reviewsData.map((review, index) => ({
     ...review,
     driver_id: drivers[index].id,

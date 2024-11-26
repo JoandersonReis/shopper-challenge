@@ -16,7 +16,7 @@ export class RideRepository {
     }
   }
 
-  public async getByCustomer(customer_id: number, driver_id: number | null) {
+  public async getByCustomer(customer_id: string, driver_id: number | null) {
     try {
       const where = {
         customer_id,

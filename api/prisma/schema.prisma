@@ -14,14 +14,6 @@ datasource db {
   url      = "postgresql://postgres:123@db:5432/challenge?schema=public"
 }
 
-model Customer {
-  id       Int    @id @default(autoincrement())
-  username String
-  Ride     Ride[]
-
-  @@map("customers")
-}
-
 model Driver {
   id           Int      @id @default(autoincrement())
   name         String
@@ -44,8 +36,7 @@ model Ride {
   duration    String
   value       Float
 
-  customer    Customer @relation(fields: [customer_id], references: [id])
-  customer_id Int
+  customer_id String
 
   driver    Driver @relation(fields: [driver_id], references: [id])
   driver_id Int

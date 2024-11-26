@@ -10,7 +10,7 @@ export type TEstimateResponse = {
 }
 
 export type TCreateRideData = {
-  customer_id: number
+  customer_id: string
   origin: string
   destination: string
   value: number
