@@ -8,11 +8,18 @@ import { RideRepository } from "./ride.repository"
 import { TRideConfirmSchema } from "./ride.schemas"
 
 class RideService {
-  public async getRoutes(
+  public async estimate(
     origin: string,
     destination: string
   ): Promise<TEstimateResponse | TError> {
     const driverRepo = new DriverRepository()
+
+    if (origin === destination) {
+      throw ErrorResponse.throw(
+        "INVALID_DATA",
+        "Os dados fornecidos no corpo da requisição são inválidos"
+      )
+    }
 
     const routes = await GoogleRoutes.getRoutes(origin, destination)
     const drivers = await driverRepo.getByDistance(

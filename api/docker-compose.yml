@@ -1,9 +1,0 @@
-services:
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_HOST_AUTH_METHOD: "trust"
-      DATABASE_URL: "postgresql://postgres:123localhost:5432/challenge-shopper?schema=public"
-    ports:
-      - "5432:5432"

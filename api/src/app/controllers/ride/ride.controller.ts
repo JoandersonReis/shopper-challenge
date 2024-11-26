@@ -45,7 +45,7 @@ class RideController implements BaseController {
     try {
       const body = request.body as TEstimateSchema
 
-      const routes = await rideService.getRoutes(body.origin, body.destination)
+      const routes = await rideService.estimate(body.origin, body.destination)
 
       response.json(routes)
     } catch (err) {
