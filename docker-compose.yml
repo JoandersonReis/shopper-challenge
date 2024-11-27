@@ -14,7 +14,7 @@ services:
     volumes:
       - ./api:/app
     env_file:
-      - ./api/.env
+      - ./.env
 
   db:
     image: postgres:alpine
@@ -31,6 +31,12 @@ services:
       - "5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+
+  web:
+    env_file:
+      - ./.env
+    environment:
+      REACT_APP_GOOGLE_APY_KEY: $GOOGLE_APY_KEY
 
 volumes:
   postgres_data:
