@@ -1,15 +1,3 @@
-export type TDriver = {
-  id: number
-  vehicle: string
-  name: string
-  description: string
-  review: {
-    rating: number
-    comment: string
-  }
-  value: number
-}
-
 export type TEstimate = {
   origin: TLatLng
   destination: TLatLng
@@ -38,4 +26,28 @@ export type TConfirmWithoutDriver = {
   customer_id: string
   distance: number
   duration: string
+}
+
+export type TRide = {
+  id: number
+  date: string
+  origin: string
+  destination: string
+  distance: number
+  duration: string
+  driver: {
+    id: number
+    name: string
+  }
+  value: number
+}
+
+export type TRidesResponse = {
+  customer_id: string
+  rides: TRide[]
+}
+
+export type THistoryParams = {
+  customerId: string
+  driverId?: string
 }

@@ -1,10 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
-import { Car } from "lucide-react"
+import { Car, Menu } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { NewRideSchema, TNewRideSchema } from "../schemas/NewRideSchema"
-import { TConfirmWithoutDriver, TEstimate } from "../services/Ride/Ride"
+import { TConfirmWithoutDriver } from "../services/Ride/Ride"
 import { RideService } from "../services/Ride/Ride.service"
 import { Form } from "./Form"
 import RideConfirmModal from "./RideConfirmModal"
@@ -24,15 +24,12 @@ export default function NewRide() {
   const [confirmData, setConfirmData] = useState<TConfirmWithoutDriver | null>(
     null
   )
-  const [rideEstimateResponse, setRideEstimateResponse] =
-    useState<TEstimate | null>(null)
 
-  const estimateMutation = useMutation({
+  const { mutate: estimateMutate, data: rideEstimateResponse } = useMutation({
     mutationFn: RideService.estimate,
     mutationKey: ["estimateResponse"],
     onSuccess: (data) => {
       const values = getValues()
-      setRideEstimateResponse(data)
 
       if (data) {
         setConfirmData({
@@ -49,7 +46,7 @@ export default function NewRide() {
   })
 
   const onSubmit = async (data: TNewRideSchema) => {
-    estimateMutation.mutate(data)
+    estimateMutate(data)
     setIsSubmitActived(true)
   }
 
@@ -98,6 +95,12 @@ export default function NewRide() {
         />{" "}
         <p className="z-20">Viajar</p>
       </Form.Button>
+      <a
+        href="/history"
+        className="w-full text-white bg-emerald-500 rounded-3xl flex items-center justify-center gap-2 h-8 cursor-pointer"
+      >
+        <Menu size={22} /> Histórico de viagens
+      </a>
     </Form.Root>
   )
 }

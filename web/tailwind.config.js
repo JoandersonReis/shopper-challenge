@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         welcome: "url('../public/assets/images/welcome-background.svg')",
+        history: "url('../public/assets/images/search-rides.svg')",
       },
     },
   },

@@ -1,6 +1,6 @@
 import clsx from "clsx"
 import { ComponentProps } from "react"
-import { TDriver } from "../services/Ride/Ride"
+import { TDriver } from "../services/Driver/driver"
 import { Driver } from "./Driver"
 
 type TDriverSelection = ComponentProps<"button"> & {

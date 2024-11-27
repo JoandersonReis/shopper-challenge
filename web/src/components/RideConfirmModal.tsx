@@ -4,17 +4,14 @@ import { ChevronsUp, Clock } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Utils } from "../lib/Utils"
-import {
-  TConfirmWithoutDriver,
-  TDriver,
-  TEstimate,
-} from "../services/Ride/Ride"
+import { TDriver } from "../services/Driver/driver"
+import { TConfirmWithoutDriver, TEstimate } from "../services/Ride/Ride"
 import { RideService } from "../services/Ride/Ride.service"
 import ConfirmCancelModal from "./ConfirmCancelModal"
 import DriverSelection from "./DriverSelection"
 
 type TRideConfirmModalProps = {
-  estimate: TEstimate | null
+  estimate: TEstimate | null | undefined
   confirm: TConfirmWithoutDriver | null
   onOpen: (value: boolean) => void
   isOpen: boolean

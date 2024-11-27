@@ -32,13 +32,15 @@ export class Utils {
     return real.format(value)
   }
 
-  public static convertDate(dateValue: string) {
+  public static convertDate(dateValue: string, time: boolean = false) {
     const date = new Date(dateValue)
     const month = date.getMonth() + 1
     const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`
     const monthFormated = month < 10 ? `0${month}` : `${month}`
     const year = date.getFullYear()
 
-    return `${day}/${monthFormated}/${year}`
+    const timeFormated = `${date.getHours()}h${date.getMinutes()}`
+
+    return `${day}/${monthFormated}/${year} - ${time && timeFormated}`
   }
 }
