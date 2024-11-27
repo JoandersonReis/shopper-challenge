@@ -12,40 +12,47 @@ class RideService {
     origin: string,
     destination: string
   ): Promise<TEstimateResponse | TError> {
-    const driverRepo = new DriverRepository()
+    try {
+      const driverRepo = new DriverRepository()
 
-    if (origin === destination) {
+      if (origin === destination) {
+        throw ErrorResponse.throw(
+          "INVALID_DATA",
+          "Os dados fornecidos no corpo da requisição são inválidos"
+        )
+      }
+
+      const routes = await GoogleRoutes.getRoutes(origin, destination)
+      const drivers = await driverRepo.getByDistance(
+        routes.routes[0].distanceMeters
+      )
+
+      const driversFormated = drivers.map((driver) => ({
+        ...driver,
+        review: driver.Review[0],
+        value:
+          driver.value * Utils.convertDistance(routes.routes[0].distanceMeters),
+      }))
+
+      return {
+        origin: {
+          latitude: routes.routes[0].legs[0].startLocation.latLng.latitude,
+          longitude: routes.routes[0].legs[0].startLocation.latLng.longitude,
+        },
+        destination: {
+          latitude: routes.routes[0].legs[0].endLocation.latLng.latitude,
+          longitude: routes.routes[0].legs[0].endLocation.latLng.longitude,
+        },
+        distance: routes.routes[0].distanceMeters,
+        duration: routes.routes[0].duration,
+        options: driversFormated,
+        routeResponse: routes,
+      }
+    } catch (err) {
       throw ErrorResponse.throw(
         "INVALID_DATA",
         "Os dados fornecidos no corpo da requisição são inválidos"
       )
-    }
-
-    const routes = await GoogleRoutes.getRoutes(origin, destination)
-    const drivers = await driverRepo.getByDistance(
-      routes.routes[0].distanceMeters
-    )
-
-    const driversFormated = drivers.map((driver) => ({
-      ...driver,
-      review: driver.Review[0],
-      value:
-        driver.value * Utils.convertDistance(routes.routes[0].distanceMeters),
-    }))
-
-    return {
-      origin: {
-        latitude: routes.routes[0].legs[0].startLocation.latLng.latitude,
-        longitude: routes.routes[0].legs[0].startLocation.latLng.longitude,
-      },
-      destination: {
-        latitude: routes.routes[0].legs[0].endLocation.latLng.latitude,
-        longitude: routes.routes[0].legs[0].endLocation.latLng.longitude,
-      },
-      distance: routes.routes[0].distanceMeters,
-      duration: routes.routes[0].duration,
-      options: driversFormated,
-      routeResponse: routes,
     }
   }
 

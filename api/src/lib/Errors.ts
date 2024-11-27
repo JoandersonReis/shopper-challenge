@@ -1,11 +1,11 @@
 export default class ErrorResponse {
-  public static throw(code: string, description: string, status: number = 400) {
+  public static throw(code: string, description: string, status?: number) {
     return [
       {
         error_code: code,
         error_description: description,
       },
-      status,
+      status || 400,
     ]
   }
 }

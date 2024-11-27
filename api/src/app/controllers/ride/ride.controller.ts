@@ -47,7 +47,7 @@ class RideController implements BaseController {
 
       const routes = await rideService.estimate(body.origin, body.destination)
 
-      response.json({ routes })
+      response.json(routes)
     } catch (err) {
       response.status(err[1]).json(err[0])
     }
