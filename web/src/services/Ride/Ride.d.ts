@@ -1,10 +1,19 @@
+export type TLatLng = {
+  latitude: number
+  longitude: number
+}
+
 export type TEstimate = {
   origin: TLatLng
   destination: TLatLng
   distance: number
   duration: string
   options: TDriver[]
-  routeResponse: object
+  routeResponse: {
+    polyline: {
+      encodedPolyline: string
+    }
+  }
 }
 
 export type TConfirm = {

@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
-import { Car, Menu } from "lucide-react"
+import { Car, Loader2, Menu } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { NewRideSchema, TNewRideSchema } from "../schemas/NewRideSchema"
@@ -47,6 +47,7 @@ export default function NewRide() {
 
   const onSubmit = async (data: TNewRideSchema) => {
     estimateMutate(data)
+
     setIsSubmitActived(true)
   }
 
@@ -89,10 +90,15 @@ export default function NewRide() {
       </Form.Content>
 
       <Form.Button disabled={isSubmitActived}>
-        <Car
-          size={22}
-          className="group-hover:animate-pulse z-20 group-disabled:animate-none"
-        />{" "}
+        {!isSubmitActived ? (
+          <Car
+            size={22}
+            className="group-hover:animate-pulse z-20 group-disabled:animate-none"
+          />
+        ) : (
+          <Loader2 size={22} className="z-20 animate-spin transition-all" />
+        )}
+
         <p className="z-20">Viajar</p>
       </Form.Button>
       <a

@@ -69,6 +69,24 @@ export default function RideConfirmModal({
           </span>
         </div>
 
+        <div>
+          <img
+            src={`https://maps.googleapis.com/maps/api/staticmap?path=color:green|enc:${encodeURI(
+              estimate.routeResponse.polyline.encodedPolyline
+            )}&markers=color:red|${`${Utils.formatedLatLonToString(
+              estimate.origin.latitude,
+              estimate.origin.longitude
+            )}|${Utils.formatedLatLonToString(
+              estimate.destination.latitude,
+              estimate.destination.longitude
+            )}`}&size=600x250&center=${Utils.formatedLatLonToString(
+              estimate.origin.latitude,
+              estimate.origin.longitude
+            )}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`}
+            alt="Rota"
+          />
+        </div>
+
         <Dialog.Description>Selecione um motorista</Dialog.Description>
 
         <div className="h-40 bg-zinc-200 w-full p-2 overflow-y-scroll flex flex-col gap-3">

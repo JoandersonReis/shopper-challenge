@@ -43,4 +43,8 @@ export class Utils {
 
     return `${day}/${monthFormated}/${year} - ${time && timeFormated}`
   }
+
+  public static formatedLatLonToString(latitude: number, longitude: number) {
+    return `${latitude},${longitude}`
+  }
 }
