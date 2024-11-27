@@ -1,7 +1,7 @@
-import NewRide from "./components/NewRide"
-import Welcome from "./components/Welcome"
+import NewRide from "../components/NewRide"
+import Welcome from "../components/Welcome"
 
-function App() {
+function Home() {
   return (
     <main className="bg-emerald-500 h-screen flex items-center justify-center p-6">
       <div className="bg-welcome bg-contain bg-no-repeat bg-white/80 max-w-[800px] rounded-md bg-center">
@@ -14,4 +14,4 @@ function App() {
   )
 }
 
-export default App
+export default Home
