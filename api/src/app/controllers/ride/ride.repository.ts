@@ -44,7 +44,6 @@ export class RideRepository {
             },
           },
         },
-
         orderBy: {
           id: "desc",
         },

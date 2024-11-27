@@ -3,6 +3,16 @@ import ErrorResponse from "../../../lib/Errors"
 import { Utils } from "../../../lib/Utils"
 
 export class DriverRepository {
+  public async all() {
+    try {
+      const drivers = await prisma.driver.findMany()
+
+      return drivers
+    } catch (err) {
+      throw ErrorResponse.throw("INVALID_DATA", "Informações inválidas!")
+    }
+  }
+
   public async getByDistance(distance: number) {
     const drivers = await prisma.driver.findMany({
       where: {
