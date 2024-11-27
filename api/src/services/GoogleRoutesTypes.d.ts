@@ -13,6 +13,9 @@ type TRoute = {
   }[]
   distanceMeters: number
   duration: string
+  polyline: {
+    encodedPolyline: string
+  }
   localizedValues: {
     distance: TLocalizedValuesSchema
     duration: TLocalizedValuesSchema

@@ -46,7 +46,7 @@ class RideService {
         distance: routes.routes[0].distanceMeters,
         duration: routes.routes[0].duration,
         options: driversFormated,
-        routeResponse: routes,
+        routeResponse: routes.routes[0],
       }
     } catch (err) {
       throw ErrorResponse.throw(
