@@ -13,8 +13,6 @@ export class RideService {
     try {
       const response = await api.post("/ride/estimate", data)
 
-      console.log(response.data)
-
       return response.data
     } catch (err: any) {
       alert(err.response.data.error_description)
