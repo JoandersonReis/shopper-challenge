@@ -13,9 +13,7 @@ export class RideService {
     try {
       const response = await api.post("/ride/estimate", data)
 
-      console.log(
-        encodeURIComponent(response.data.routeResponse.polyline.encodedPolyline)
-      )
+      console.log(response.data)
 
       return response.data
     } catch (err: any) {

@@ -1,3 +1,4 @@
+import { ArrowDown } from "lucide-react"
 import { ComponentProps } from "react"
 import { twMerge } from "tailwind-merge"
 
@@ -21,7 +22,7 @@ export default function RideOriginDestination({
       )}
     >
       {origin}
-      <span>à</span>
+      <ArrowDown size={18} className="text-zinc-400" />
       {destination}
     </h3>
   )
