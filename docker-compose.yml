@@ -16,6 +16,19 @@ services:
     env_file:
       - ./.env
 
+  web:
+    build: ./web
+    container_name: web
+    restart: always
+    ports:
+      - '80:80'
+    depends_on:
+      - api
+    env_file:
+      - ./.env
+    environment:
+      REACT_APP_GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+
   db:
     image: postgres:alpine
     restart: always
@@ -32,11 +45,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
-  web:
-    env_file:
-      - ./.env
-    environment:
-      REACT_APP_GOOGLE_APY_KEY: $GOOGLE_APY_KEY
 
 volumes:
   postgres_data:
+  
